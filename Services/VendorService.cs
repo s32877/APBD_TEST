@@ -17,4 +17,9 @@ public class VendorService : IVendorService
         return _vendorRepository.GetVendorsAsync(name);
     }
 
+    public Task CreateVendorsAsync(CreateVendorsRequest createVendorsRequest)
+    {
+        return _vendorRepository.CreateVendorsAsync(createVendorsRequest);
+    }
+
 }

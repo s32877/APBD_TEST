@@ -50,5 +50,18 @@ public class VendorRepository  : IVendorRepository
         }
         return vendorsByCode.Values.ToList()!;
     }
+
+    public async Task CreateVendorsAsync(CreateVendorsRequest createVendorsRequest)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync();
+        
+        await using var command = new SqlCommand(
+            "INSERT INTO Vendors (Code, Name) VALUES (@code, @name);", connection);
+        command.Parameters.AddWithValue("@code", createVendorsRequest.code);
+        command.Parameters.AddWithValue("@name", createVendorsRequest.name);
+        
+        await command.ExecuteNonQueryAsync();
+    }
     
 }

@@ -1,4 +1,5 @@
-﻿using APBD_TEST_TEMPLATE.Repositories;
+﻿using APBD_TEST_TEMPLATE.DTOs;
+using APBD_TEST_TEMPLATE.Repositories;
 using APBD_TEST_TEMPLATE.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,5 +21,11 @@ public class VendorsController : ControllerBase
         var vendor = await _vendorService.GetVendorsAsync(name);
         return Ok(vendor);
     }
-   
+
+    [HttpPost]
+    public async Task<IActionResult> CreateVendors([FromBody]  CreateVendorsRequest createVendorsRequest)
+    {
+        await  _vendorService.CreateVendorsAsync(createVendorsRequest);
+        return CreatedAtAction(nameof(GetVendors), new { name = createVendorsRequest.name }, null);
+    }
 }
