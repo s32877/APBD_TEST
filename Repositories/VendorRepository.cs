@@ -1,4 +1,5 @@
-﻿using APBD_TEST_TEMPLATE.DTOs;
+﻿using System.Data;
+using APBD_TEST_TEMPLATE.DTOs;
 using Microsoft.Data.SqlClient;
 
 namespace APBD_TEST_TEMPLATE.Repositories;
@@ -17,7 +18,7 @@ public class VendorRepository  : IVendorRepository
     {
         await using var connection = new SqlConnection(_connectionString);
         await connection.OpenAsync();
-        var vendorsById = new Dictionary<int, VendorResponseDto>();
+        var vendorsByCode = new Dictionary<string, VendorResponseDto>();
         await using (var command = new SqlCommand(@"
                                     SELECT V.CODE, V.NAME, P.ID, P.NAME, P.DESCRIPTION, P.STICKERPRICE, PT.ID, PT.NAME,
                                     M.ID, M.NAME, VO.AMOUNT, VO.PRICEPERUNIT FROM Vendor V
@@ -32,10 +33,22 @@ public class VendorRepository  : IVendorRepository
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
+                var vendorCode =  reader.GetString(0);
+                if (!vendorsByCode.TryGetValue(vendorCode, out var vendor))
+                {
+                    vendor = new VendorResponseDto
+                    {
+                        code = vendorCode,
+                        name = reader.GetString(1),
+                        products = new List<ProductResponseDto>()
+                    };
+                    vendorsByCode.Add(vendorCode, vendor);
+                }
                 
             }
             
         }
+        return vendorsByCode.Values.ToList()!;
     }
     
 }

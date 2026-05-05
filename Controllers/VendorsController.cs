@@ -15,8 +15,9 @@ public class VendorsController : ControllerBase
         _vendorService = vendorService;
     }
     [HttpGet]
-    public IActionResult GetVendors([FromQuery] string? name)
+    public async Task<IActionResult> GetVendors([FromQuery] string? name)
     {
-        
+        var vendor = await _vendorService.GetVendorsAsync(name);
+        return Ok(vendor);
     }
 }

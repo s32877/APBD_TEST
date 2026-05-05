@@ -4,5 +4,5 @@ public class VendorResponseDto
 {
     public string code { get; set; } = null!;
     public string name { get; set; } = null!;
-    public List<ProductResponseDto> products { get; set; } = null!;
+    public List<ProductResponseDto> products { get; set; } = new List<ProductResponseDto>();
 }
