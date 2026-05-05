@@ -21,7 +21,7 @@ public class VendorRepository  : IVendorRepository
         var vendorsByCode = new Dictionary<string, VendorResponseDto>();
         await using (var command = new SqlCommand(@"
                                     SELECT V.CODE, V.NAME, P.ID, P.NAME, P.DESCRIPTION, P.STICKERPRICE, PT.ID, PT.NAME,
-                                    M.ID, M.NAME, VO.AMOUNT, VO.PRICEPERUNIT FROM Vendor V
+                                    M.ID, M.NAME, VO.AMOUNT, VO.PRICEPERUNIT FROM Vendors V
                                     JOIN VENDORPRODUCTS VP ON V.CODE = VP.VENDORCODE
                                     JOIN PRODUCTS P ON  P.ID = VP.PRODUCTID
                                     JOIN MAKERS M ON M.ID = P.MakerId

@@ -20,4 +20,5 @@ public class VendorsController : ControllerBase
         var vendor = await _vendorService.GetVendorsAsync(name);
         return Ok(vendor);
     }
+   
 }
