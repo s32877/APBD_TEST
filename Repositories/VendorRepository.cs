@@ -63,5 +63,5 @@ public class VendorRepository  : IVendorRepository
         
         await command.ExecuteNonQueryAsync();
     }
-    
+    //have mercy
 }
