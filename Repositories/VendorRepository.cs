@@ -10,7 +10,7 @@ public class VendorRepository  : IVendorRepository
 
     public VendorRepository(IConfiguration configuration)
     {
-        _connectionString = configuration.GetConnectionString("Default")
+        _connectionString = configuration.GetConnectionString("DefaultConnection")
                             ?? throw new InvalidOperationException("Missing 'Default' connection string.");
     }
 
