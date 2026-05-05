@@ -25,7 +25,7 @@ public class VendorRepository  : IVendorRepository
                                     JOIN VENDORPRODUCTS VP ON V.CODE = VP.VENDORCODE
                                     JOIN PRODUCTS P ON  P.ID = VP.PRODUCTID
                                     JOIN MAKERS M ON M.ID = P.MakerId
-                                    JOIN PRODUCTTYPES PT ON PT.ID = M.PRODUCTTYPEID
+                                    JOIN PRODUCTTYPES PT ON PT.ID = P.ProductTypeId
                                     WHERE V.NAME LIKE @name
                                                            ", connection))
         {
